@@ -105,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
       salvou = await ProdutoBanco().inserirProduto(produto);
     } else {
       salvou = await ProdutoBanco().atualizarProduto(produto);
-    }
+    }git
     if (salvou) {
       //fecha modal formulario
       Navigator.of(context).pop();
