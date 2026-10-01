@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guia_turismo/themes/theme_widgets.dart';
 
 class ThemeController extends ChangeNotifier {
   //notifierlisteners
@@ -14,18 +15,11 @@ class ThemeController extends ChangeNotifier {
       brightness: brilho,
     );
     return ThemeData(
-      primarySwatch: Colors.purple,
+      useMaterial3: true,
       colorScheme: cor,
-      appBarTheme: AppBarTheme(
-        centerTitle: true,
-        backgroundColor: cor.primary,
-        foregroundColor: cor.onPrimary,
-        elevation: 4,
-      ),
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: cor.primary,
-        elevation: 4,
-      ),
+      appBarTheme: defineAppBar(cor),
+      bottomNavigationBarTheme: defineNavegacaoBase(cor),
+      elevatedButtonTheme: defineBotaoElevated(cor),
     );
   }
 
