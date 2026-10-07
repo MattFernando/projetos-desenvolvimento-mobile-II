@@ -18,9 +18,10 @@ class Lugarescontroller extends ChangeNotifier{
       final listaLugares = await LugaresService.buscarLugares();
       _lugares = listaLugares;
     }catch(error){
-
+      erro = "Erro ao listar: ${error.toString()}";
     }finally{
-
+      carregando = false;
+      notifyListeners();
     }
   }
 }
