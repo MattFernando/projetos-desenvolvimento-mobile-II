@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:guia_turismo/models/lugaresModel.dart';
 import 'package:guia_turismo/services/lugaresServices.dart';
 
-class Lugarescontroller extends ChangeNotifier{
+class LugaresController extends ChangeNotifier{
   bool carregando = false;
   String erro = "";
   List<LugaresModel> _lugares = [];
