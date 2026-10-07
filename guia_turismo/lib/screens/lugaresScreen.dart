@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:guia_turismo/controllers/lugaresController.dart';
+import 'package:provider/provider.dart';
 
 class Lugaresscreen extends StatefulWidget {
   const Lugaresscreen({super.key});
@@ -10,6 +12,42 @@ class Lugaresscreen extends StatefulWidget {
 class _LugaresscreenState extends State<Lugaresscreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Lugares para visitar"),
+      ),
+      body: Consumer<LugaresController>(
+        builder: (context, LugaresController, child) {
+          if (LugaresController.carregando){
+            return Center(child: CircularProgressIndicator());
+          }
+          if(LugaresController.erro != ''){
+            return Center(child: Text(LugaresController.erro));
+        }
+        if (LugaresController.lugares.isEmpty){
+          return Center(child: Text("Nenhum lugar encontrado..."));
+        }
+        return ListView.builder(
+          itemCount: LugaresController.lugares.length,
+          itemBuilder: (context, index) {
+            final lugar = LugaresController.lugares[index];
+            return Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16)
+              ),
+              elevation: 4,
+              child: ListTile(
+                onTap: (){},
+                title: Text(lugar.nome),
+                subtitle: Text(lugar.categoria.toString()),
+                leading: CircleAvatar(child: Icon(Icons.place)),
+                trailing: IconButton(onPressed: (){}, icon: Icon(Icons.favorite)),
+              ),
+            );
+          },
+        );
+        }
+      )
+    );
   }
 }
