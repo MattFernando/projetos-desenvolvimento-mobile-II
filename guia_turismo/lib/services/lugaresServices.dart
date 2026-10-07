@@ -3,14 +3,14 @@ import 'dart:convert';
 import 'package:guia_turismo/models/lugaresModel.dart';
 import 'package:http/http.dart' as http;
 
-class Lugaresservices {
+class LugaresServices {
   String endpoint = "https/guiaturismo.onrender.com";
   int pagina = 1;
   int limite = 10;
 
-  Future<List<LugaresModel>> BuscarLugares() async {
+  Future<List<LugaresModel>> buscarLugares() async {
     try {
-      final response = await http.get(Uri.parse(endpoint));
+      final response = await http.get(Uri.parse('$endpoint?pagina=$pagina&limite=$limite'));
       if (response.statusCode == 200){
         final Map<String, dynamic> responseData = jsonDecode(response.body);
         final List<dynamic> data = responseData['data'];
