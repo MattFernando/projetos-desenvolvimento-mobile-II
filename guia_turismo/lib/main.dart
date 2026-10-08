@@ -19,7 +19,7 @@ class _inicializarState extends State<Inicializar>{
   Widget build(BuildContext context){
     return MultiProvider(providers: [
         ChangeNotifierProvider(
-          create: (_) => LugaresController(),
+          create: (_) => LugaresController()..listarLugares(),
         ),
       ],
     child: Consumer<LugaresController>
