@@ -14,11 +14,29 @@ class LugaresController extends ChangeNotifier{
     carregando = true;
     notifyListeners();
     try{
-      final LugaresService = LugaresServices();
-      final listaLugares = await LugaresService.buscarLugares();
+      final lugaresService = LugaresServices();
+      final listaLugares = await lugaresService.buscarLugares();
       _lugares = listaLugares;
     }catch(error){
       erro = "Erro ao listar: ${error.toString()}";
+    }finally{
+      carregando = false;
+      notifyListeners();
+    }
+  }
+
+  Future<String> cadastrarLugar(LugaresModel dados) async {
+    //final token = await SessionService().pegarToken() ?? '';
+    carregando = true;
+    erro = '';
+    notifyListeners();
+    try{
+      final lugaresService = LugaresServices();
+      final resposta = await lugaresService.cadastrarLugar(dados, "");
+      return resposta;
+    }catch(e){
+      erro = "Erro ao cadastrar: $e";
+      return erro;
     }finally{
       carregando = false;
       notifyListeners();

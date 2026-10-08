@@ -17,21 +17,22 @@ class _LugaresscreenState extends State<Lugaresscreen> {
         title: Text("Lugares para visitar"),
       ),
       body: Consumer<LugaresController>(
-        builder: (context, LugaresController, child) {
-          if (LugaresController.carregando){
+        builder: (context, lugaresController, child) {
+          if (lugaresController.carregando){
             return Center(child: CircularProgressIndicator());
           }
-          if(LugaresController.erro != ''){
-            return Center(child: Text(LugaresController.erro));
+          if(lugaresController.erro != ''){
+            return Center(child: Text(lugaresController.erro));
         }
-        if (LugaresController.lugares.isEmpty){
+        if (lugaresController.lugares.isEmpty){
           return Center(child: Text("Nenhum lugar encontrado..."));
         }
         return ListView.builder(
-          itemCount: LugaresController.lugares.length,
+          itemCount: lugaresController.lugares.length,
           itemBuilder: (context, index) {
-            final lugar = LugaresController.lugares[index];
+            final lugar = lugaresController.lugares[index];
             return Card(
+              color: Colors.grey,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16)
               ),
