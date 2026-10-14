@@ -16,4 +16,12 @@ class CameraController extends ChangeNotifier{
     carregando = false;
     notifyListeners();
   }
+
+  Future<void> abrirCamera() async {
+    carregando = true;
+    notifyListeners();
+    _imagemSelecionada = await _service.chamarGaleria();
+    carregando = false;
+    notifyListeners();
+  }
 }
