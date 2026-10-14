@@ -24,7 +24,9 @@ class _CadastroLugarState extends State<CadastroLugar> {
                   decoration: BoxDecoration(
                     border: Border.all(width: 4),
                     borderRadius: BorderRadius.circular(16),
-                    image: DecorationImage(image: FileImage(controle.imagemSelecionada!))
+                    image: DecorationImage(image: FileImage(controle.imagemSelecionada!),
+                      fit: BoxFit.cover
+                    )
                   ),
                 )
               ],

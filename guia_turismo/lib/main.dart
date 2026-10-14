@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:guia_turismo/controllers/auth.controller.dart';
+import 'package:guia_turismo/controllers/camera_controller.dart';
 import 'package:guia_turismo/controllers/lugaresController.dart';
 import 'package:guia_turismo/screens/lugaresScreen.dart';
 import 'package:guia_turismo/services/inicializar.dart';
@@ -18,9 +20,10 @@ class _inicializarState extends State<Inicializar>{
   @override
   Widget build(BuildContext context){
     return MultiProvider(providers: [
-        ChangeNotifierProvider(
-          create: (_) => LugaresController()..listarLugares(),
-        ),
+        ChangeNotifierProvider(create: (_) => LugaresController()),
+        ChangeNotifierProvider(create: (_) => AuthController()),
+        //ChangeNotifierProvider(create: (_) => ThemeController()),
+        ChangeNotifierProvider(create: (_) => CameraController()),
       ],
     child: Consumer<LugaresController>
     (
