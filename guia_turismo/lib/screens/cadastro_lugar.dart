@@ -38,3 +38,12 @@ class _CadastroLugarState extends State<CadastroLugar> {
   }
 }
 
+DecorationImage exibirImagem (CameraController controle){
+  if(controle.imagemSelecionada == null){
+    return DecorationImage(image: NetworkImage(''));
+  }
+  else{
+    return DecorationImage(image: FileImage(controle.imagemSelecionada!),
+              fit: BoxFit.cover);
+  }
+}

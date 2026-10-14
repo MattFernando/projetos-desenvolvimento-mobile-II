@@ -11,4 +11,10 @@ class CameraService {
     if(imagem ==null) return null;
     return File(imagem.path);
   }
+
+  Future<File?> chamarCamera() async{
+    final XFile? imagem = await _image.pickImage(source: ImageSource.camera);
+    if(imagem ==null) return null;
+    return File(imagem.path);
+  }
 }
