@@ -2,6 +2,7 @@ class LugaresModel {
   final int id;
   final String nome;
   final String? categoria;
+  final String? categoriaId;
   final double latitude;
   final double longitude;
   final String? descricao;
@@ -12,6 +13,7 @@ class LugaresModel {
     required this.latitude,
     required this.longitude,
     this.categoria = '',
+    this.categoriaId = '',
     this.descricao = '',
   });
 
@@ -24,6 +26,7 @@ class LugaresModel {
       longitude: json['longitude'],
       descricao: json['descricao'],
       categoria: json['categoria']['nome'] ?? json['categoria']['nome'],
+      categoriaId: json['categoriaId']
     );
   }
   Map<String, dynamic> toJson() {
@@ -34,6 +37,7 @@ class LugaresModel {
       'longitude': longitude,
       'descricao': descricao,
       'categoria': categoria,
+      'categoriaId': categoriaId,
     };
   }
 }
