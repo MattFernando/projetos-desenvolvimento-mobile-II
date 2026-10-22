@@ -13,9 +13,6 @@ class _LugaresscreenState extends State<Lugaresscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Lugares para visitar"),
-      ),
       body: Consumer<LugaresController>(
         builder: (context, lugaresController, child) {
           if (lugaresController.carregando){

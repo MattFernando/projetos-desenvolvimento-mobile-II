@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
         //Muda o index da pagina, e por consequencia a página
         onTap: (index) => setState(() => _paginaAtual = index),
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Inicio'),
+          BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Inicio'),
           BottomNavigationBarItem(icon: Icon(Icons.camera), label: 'Camera'),
           BottomNavigationBarItem(icon: Icon(Icons.place), label: 'Locais')
         ]

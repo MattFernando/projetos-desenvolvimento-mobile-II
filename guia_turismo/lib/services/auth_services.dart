@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
-  final String url = 'https://guiaturismo.onrender.com/login';
+  final String url = 'https://guia.liliaborges.com.br/login';
   
   Future<Map> autenticar(String email, String senha) async {
     try {
