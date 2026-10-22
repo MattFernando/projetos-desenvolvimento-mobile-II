@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:guia_turismo/controllers/camera_controller.dart';
+import 'package:guia_turismo/controllers/lugaresController.dart';
+import 'package:guia_turismo/models/lugaresModel.dart';
 import 'package:provider/provider.dart';
 
 class CadastroLugar extends StatefulWidget {
@@ -10,40 +11,136 @@ class CadastroLugar extends StatefulWidget {
 }
 
 class _CadastroLugarState extends State<CadastroLugar> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Consumer<CameraController>(
-        builder:(context, controle, _) => Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-           children: [
-            Stack(
-              children: [
-                Container(// o primeiro Widget do Stack é o fundo
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 4),
-                    borderRadius: BorderRadius.circular(16),
-                    image: DecorationImage(image: FileImage(controle.imagemSelecionada!),
-                      fit: BoxFit.cover
-                    )
-                  ),
-                )
+  final _nomeController = TextEditingController();
+  final _descricaoController = TextEditingController();
+  final _latitudeController = TextEditingController();
+  final _longitudeController = TextEditingController();
+  int _categoriaId = 1;
+
+void abrirForm() {
+  //Sempre que abrir o forms, o campo está limpo
+  _nomeController.clear();
+  _descricaoController.clear();
+  _latitudeController.clear();
+  _longitudeController.clear();
+  _categoriaId = 1;
+  showDialog(context: context,
+  builder: (context) {
+    return AlertDialog(
+      title: Text("Cadastro de lugares!"),
+      content: SingleChildScrollView( 
+        child: Column(
+          //mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: _nomeController,
+              decoration: InputDecoration(
+                label: Text("Nome")
+              ),
+            ),
+            SizedBox(height: 20),
+            TextField(
+              controller: _descricaoController,
+              decoration: InputDecoration(
+                label: Text("Descrição")
+              ),
+            ),
+            SizedBox(height: 20),
+            DropdownButtonFormField<int>(
+              initialValue: _categoriaId,
+              decoration: InputDecoration(
+                label: Text("Categoria")
+              ),
+              items: [
+                DropdownMenuItem(value: 1, child: Text("Praias")),
+                DropdownMenuItem(value: 2, child: Text("Cidades")),
+                DropdownMenuItem(value: 3, child: Text("Natureza"))
               ],
-            )
-           ],
+              //Salva o valor do dropdown
+              onChanged: (valor) => _categoriaId = valor!,
+            ),
+            SizedBox(height: 20),
+            TextField(
+              controller: _latitudeController,
+              decoration: InputDecoration(
+                label: Text("Latitude")
+              ),
+            ),
+            SizedBox(height: 20),
+            TextField(
+              controller: _longitudeController,
+              decoration: InputDecoration(
+                label: Text("Longitude")
+              ),
+            ),
+          ],
         ),
-      )
+      ),
+      actions: [
+        TextButton(onPressed: () => Navigator.pop(context), child: Text("Cancelar")),
+        TextButton(onPressed: () => _salvarDados(context), child: Text("Salvar"))
+      ],
     );
+  });
+}
+Future<void> _salvarDados(BuildContext contextDialog) async {
+  final novoLugar = LugaresModel(
+    id: 0,
+    nome: _nomeController.text,
+    descricao: _descricaoController.text,
+    //conversão simples de virguloa para ponto
+    latitude: double.tryParse(_latitudeController.text.replaceAll(',', '.')) ?? 0,
+    longitude: double.tryParse(_longitudeController.text.replaceAll(',', '.')) ?? 0,
+    categoriaId: _categoriaId.toString(),
+  );
+  final controleLugares = context.read<LugaresController>();
+  final mensagem = await controleLugares.cadastrarLugar(novoLugar);
+  if (!contextDialog.mounted) return;
+  ScaffoldMessenger.of(contextDialog).showSnackBar(SnackBar(content: Text(mensagem)));
+  if (controleLugares.erro.isEmpty) {
+    Navigator.pop(contextDialog); 
   }
 }
 
-DecorationImage exibirImagem (CameraController controle){
-  if(controle.imagemSelecionada == null){
-    return DecorationImage(image: NetworkImage(''));
-  }
-  else{
-    return DecorationImage(image: FileImage(controle.imagemSelecionada!),
-              fit: BoxFit.cover);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Consumer<LugaresController>(
+        builder:(context, controle, child) { 
+          if (controle.erro !=0){
+            return Center(child: Text(controle.erro));
+          }
+          if (controle.lugares.isEmpty){
+            return Center(child: Text("Nenhum lugar encontrado, tente novamente"));
+          }
+          return ListView.builder(
+          itemCount: controle.lugares.length,
+          itemBuilder: (context, index) {
+            final lugar = controle.lugares[index];
+            return Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadiusGeometry.circular(12)
+              ),
+              elevation: 4,
+              child: ListTile(
+                onTap: (){},
+                title: Text(lugar.nome),
+                subtitle: Text(lugar.categoria.toString()),
+                //Icone que fica no inicio da linha
+                leading: CircleAvatar(child: Icon(Icons.place)),
+                //Icone que fica no final da linha
+                trailing: IconButton(onPressed: (){}, icon: Icon(Icons.favorite)),
+              ),
+            );
+          },
+        );
+        }
+      ),
+       floatingActionButton: FloatingActionButton(
+        onPressed: () => abrirForm(),
+        child: Icon(Icons.add_location_alt),
+      ),
+
+    );
   }
 }

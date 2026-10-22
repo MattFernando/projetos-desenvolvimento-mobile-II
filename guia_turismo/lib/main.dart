@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:guia_turismo/controllers/auth.controller.dart';
 import 'package:guia_turismo/controllers/camera_controller.dart';
 import 'package:guia_turismo/controllers/lugaresController.dart';
+import 'package:guia_turismo/screens/cadastro_lugar.dart';
 import 'package:guia_turismo/screens/lugaresScreen.dart';
 import 'package:guia_turismo/services/inicializar.dart';
+import 'package:guia_turismo/themes/theme_controller.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -22,16 +24,19 @@ class _inicializarState extends State<Inicializar>{
     return MultiProvider(providers: [
         ChangeNotifierProvider(create: (_) => LugaresController()),
         ChangeNotifierProvider(create: (_) => AuthController()),
-        //ChangeNotifierProvider(create: (_) => ThemeController()),
+        ChangeNotifierProvider(create: (_) => ThemeController()),
         ChangeNotifierProvider(create: (_) => CameraController()),
       ],
-    child: Consumer<LugaresController>
+    child: 
+    //Consumer<LugaresController>
     (
-      builder: (context, LugaresController, child) => MaterialApp(
+      //builder: (context, LugaresController, child) => 
+      MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: 'lugares',
+        initialRoute: 'cadastro',
         routes:{
-          'lugares': (context) => Lugaresscreen()
+          'lugares': (context) => Lugaresscreen(),
+          'cadastro': (context) => CadastroLugar()
         }
       )
     ),
