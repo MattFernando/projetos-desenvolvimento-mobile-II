@@ -3,6 +3,7 @@ import 'package:guia_turismo/controllers/auth.controller.dart';
 import 'package:guia_turismo/controllers/camera_controller.dart';
 import 'package:guia_turismo/controllers/lugaresController.dart';
 import 'package:guia_turismo/screens/cadastro_lugar.dart';
+import 'package:guia_turismo/screens/home_screen.dart';
 import 'package:guia_turismo/screens/lugaresScreen.dart';
 import 'package:guia_turismo/services/inicializar.dart';
 import 'package:guia_turismo/themes/theme_controller.dart';
@@ -27,18 +28,21 @@ class _inicializarState extends State<Inicializar>{
         ChangeNotifierProvider(create: (_) => ThemeController()),
         ChangeNotifierProvider(create: (_) => CameraController()),
       ],
-    child: 
-    //Consumer<LugaresController>
-    (
-      //builder: (context, LugaresController, child) => 
-      MaterialApp(
+    child: Consumer<ThemeController>(
+        builder: (context, controllerThema, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: 'cadastro',
-        routes:{
+        theme: controllerThema.temaClaro(),
+        darkTheme: controllerThema.temaEscuro(),
+        themeMode: controllerThema.temaAtual,
+        initialRoute: 'login',
+        //Define as rotas e em quais classes devem ser chamadas
+        routes: {
+          //'login': (context) => LoginScreen(),
+          'home': (context) => HomeScreen(),
           'lugares': (context) => Lugaresscreen(),
-          'cadastro': (context) => CadastroLugar()
-        }
-      )
+          //'camera': (context) => cameraScreen()
+        },
+      ),
     ),
     );
   }
