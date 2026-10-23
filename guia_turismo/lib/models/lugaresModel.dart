@@ -2,22 +2,23 @@ class LugaresModel {
   final int id;
   final String nome;
   final String? categoria;
-  final String? categoriaId;
-  final double latitude;
-  final double longitude;
+  final num latitude;
+  final num longitude;
   final String? descricao;
+  final int categoriaId;
+
 
   LugaresModel({
     required this.id,
     required this.nome,
+    this.categoria = '',
     required this.latitude,
     required this.longitude,
-    this.categoria = '',
-    this.categoriaId = '',
     this.descricao = '',
+    required this.categoriaId
   });
 
-  //Converter dados json (da API) para Map
+  //Converter dados json (da api) para Map
   factory LugaresModel.fromJson(Map json) {
     return LugaresModel(
       id: json['id'],
@@ -29,15 +30,16 @@ class LugaresModel {
       categoriaId: json['categoriaId']
     );
   }
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
       'nome': nome,
       'latitude': latitude,
       'longitude': longitude,
-      'descricao': descricao,
       'categoria': categoria,
-      'categoriaId': categoriaId,
+      'descricao': descricao,
+      'categoriaId': categoriaId
     };
   }
 }

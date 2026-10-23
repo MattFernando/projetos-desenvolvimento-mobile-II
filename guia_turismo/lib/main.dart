@@ -37,7 +37,7 @@ class Inicializar extends StatelessWidget {
         routes: {
           'login': (context) => LoginScreen(),
           'home': (context) => HomeScreen(),
-          'lugares': (context) => Lugaresscreen(),
+          'lugares': (context) => CadastroLugar(),
           'camera': (context) => CameraScreen()
         },
       ),

@@ -17,6 +17,8 @@ class _CadastroLugarState extends State<CadastroLugar> {
   final _longitudeController = TextEditingController();
   int _categoriaId = 1;
 
+  
+
 void abrirForm() {
   //Sempre que abrir o forms, o campo está limpo
   _nomeController.clear();
@@ -83,21 +85,23 @@ void abrirForm() {
     );
   });
 }
+
 Future<void> _salvarDados(BuildContext contextDialog) async {
   final novoLugar = LugaresModel(
     id: 0,
     nome: _nomeController.text,
     descricao: _descricaoController.text,
-    //conversão simples de virguloa para ponto
+    //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAAAAAAAAAAAAAAAAA
     latitude: double.tryParse(_latitudeController.text.replaceAll(',', '.')) ?? 0,
     longitude: double.tryParse(_longitudeController.text.replaceAll(',', '.')) ?? 0,
-    categoriaId: _categoriaId.toString(),
+    categoriaId: _categoriaId
   );
   final controleLugares = context.read<LugaresController>();
   final mensagem = await controleLugares.cadastrarLugar(novoLugar);
   if (!contextDialog.mounted) return;
   ScaffoldMessenger.of(contextDialog).showSnackBar(SnackBar(content: Text(mensagem)));
   if (controleLugares.erro.isEmpty) {
+    //Se deu certo, fecha o modal
     Navigator.pop(contextDialog); 
   }
 }
@@ -105,15 +109,17 @@ Future<void> _salvarDados(BuildContext contextDialog) async {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<LugaresController>(
-        builder:(context, controle, child) { 
-          if (controle.erro !=0){
-            return Center(child: Text(controle.erro));
-          }
-          if (controle.lugares.isEmpty){
-            return Center(child: Text("Nenhum lugar encontrado, tente novamente"));
-          }
-          return ListView.builder(
+      body: Consumer<LugaresController>(builder: (context, controle, _) {
+        if (controle.carregando){
+          return Center(child: CircularProgressIndicator());
+        }
+        if (controle.erro != ''){
+          return Center(child: Text(controle.erro));
+        }
+        if (controle.lugares.isEmpty){
+          return Center(child: Text("Nenhum lugar encontrado"));
+        }
+        return ListView.builder(
           itemCount: controle.lugares.length,
           itemBuilder: (context, index) {
             final lugar = controle.lugares[index];
@@ -126,17 +132,15 @@ Future<void> _salvarDados(BuildContext contextDialog) async {
                 onTap: (){},
                 title: Text(lugar.nome),
                 subtitle: Text(lugar.categoria.toString()),
-                //Icone que fica no inicio da linha
                 leading: CircleAvatar(child: Icon(Icons.place)),
-                //Icone que fica no final da linha
                 trailing: IconButton(onPressed: (){}, icon: Icon(Icons.favorite)),
               ),
             );
           },
         );
-        }
-      ),
-       floatingActionButton: FloatingActionButton(
+      }),
+
+      floatingActionButton: FloatingActionButton(
         onPressed: () => abrirForm(),
         child: Icon(Icons.add_location_alt),
       ),

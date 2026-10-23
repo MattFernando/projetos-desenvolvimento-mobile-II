@@ -4,19 +4,23 @@ import 'package:guia_turismo/models/lugaresModel.dart';
 import 'package:http/http.dart' as http;
 
 class LugaresServices {
-  String endpoint = "https://guiaturismo.onrender.com/lugares";
+  String endpoint = "https://guia.liliaborges.com.br/lugares";
   int pagina = 1;
   int limite = 10;
 
   Future<List<LugaresModel>> buscarLugares() async {
     try {
-      final response = await http.get(Uri.parse('$endpoint?pagina=$pagina&limite=$limite'));
-      if (response.statusCode == 200){
+      //Tentativa de carregar os dados da API
+      final response = await http.get(
+        Uri.parse('$endpoint?pagina=$pagina&limite=$limite'),
+      );
+      //Se der certo
+      if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = jsonDecode(response.body);
         final List<dynamic> data = responseData['data'];
-
         return data.map((item) => LugaresModel.fromJson(item)).toList();
-      }else{
+        //Se não der certo
+      } else {
         throw Exception('Erro na requisição: ${response.body}');
       }
     } catch (e) {
@@ -36,9 +40,12 @@ class LugaresServices {
       body: jsonEncode(dados.toJson())
       );
       Map<String, dynamic> mensagem = jsonDecode(resposta.body);
-      return mensagem['mesage'];
-    }catch(erro){
+      if (resposta.statusCode != 201) {
+        throw Exception(mensagem['message'] ?? 'Erro ao cadastrar');
+      }
+      return mensagem['message'] ?? 'Lugar cadastrado!';
+    } catch (erro) {
       rethrow;
     }
+    }
   }
-}

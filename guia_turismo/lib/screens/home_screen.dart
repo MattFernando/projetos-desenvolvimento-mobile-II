@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:guia_turismo/screens/cadastro_lugar.dart';
 import 'package:guia_turismo/screens/camera_screen.dart';
-import 'package:guia_turismo/screens/lugaresScreen.dart';
 import 'package:guia_turismo/themes/theme_controller.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _paginas = [
     Center(),
     CameraScreen(),
-    Lugaresscreen(),
+    CadastroLugar(),
   ];
 
   final List<String> _cabecalho = [
