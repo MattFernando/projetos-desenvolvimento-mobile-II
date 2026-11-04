@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:guia_turismo/controllers/auth.controller.dart';
 import 'package:guia_turismo/controllers/camera_controller.dart';
 import 'package:guia_turismo/controllers/lugaresController.dart';
+import 'package:guia_turismo/controllers/gps_controller.dart';
 import 'package:guia_turismo/screens/cadastro_lugar.dart';
 import 'package:guia_turismo/screens/camera_screen.dart';
+import 'package:guia_turismo/screens/gpsScreen.dart';
 import 'package:guia_turismo/screens/home_screen.dart';
 import 'package:guia_turismo/screens/login_screen.dart';
 import 'package:guia_turismo/screens/lugaresScreen.dart';
@@ -25,6 +27,7 @@ class Inicializar extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AuthController()),
         ChangeNotifierProvider(create: (_) => ThemeController()),
         ChangeNotifierProvider(create: (_) => CameraController()),
+        ChangeNotifierProvider(create: (_) => GpsController()),
       ],
     child: Consumer<ThemeController>(
         builder: (context, controllerThema, child) => MaterialApp(
@@ -38,7 +41,8 @@ class Inicializar extends StatelessWidget {
           'login': (context) => LoginScreen(),
           'home': (context) => HomeScreen(),
           'lugares': (context) => CadastroLugar(),
-          'camera': (context) => CameraScreen()
+          'camera': (context) => CameraScreen(),
+          'gps': (context) => GpsScreen()
         },
       ),
     ),
