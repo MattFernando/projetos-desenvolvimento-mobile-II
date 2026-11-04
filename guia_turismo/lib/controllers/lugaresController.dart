@@ -9,7 +9,7 @@ class LugaresController extends ChangeNotifier{
   List<LugaresModel> _lugares = [];
   List<LugaresModel> get lugares => _lugares;
 
-  // inicializar
+  // EU SOU BURRO E ESQUECI DESSA LINHA E FIQUEI 2 HORAS TENTANDO LISTAR
   LugaresController(){
     listaLugares();
   }
