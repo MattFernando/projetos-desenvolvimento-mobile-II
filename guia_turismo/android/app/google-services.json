@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1020548126936",
+    "project_id": "login-6428f",
+    "storage_bucket": "login-6428f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1020548126936:android:284d59f22f4c928d005fad",
+        "android_client_info": {
+          "package_name": "com.example.guia_turismo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1020548126936-jr89iqleodsriu0l14v5beellg6bfac2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmHh-v52znm9jj3kbkk7qdpuv9aMMbVeE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1020548126936-jr89iqleodsriu0l14v5beellg6bfac2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
