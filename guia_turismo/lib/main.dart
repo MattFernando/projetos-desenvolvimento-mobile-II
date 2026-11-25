@@ -8,7 +8,6 @@ import 'package:guia_turismo/screens/camera_screen.dart';
 import 'package:guia_turismo/screens/gpsScreen.dart';
 import 'package:guia_turismo/screens/home_screen.dart';
 import 'package:guia_turismo/screens/login_screen.dart';
-import 'package:guia_turismo/screens/login_google_screen.dart';
 import 'package:guia_turismo/screens/lugaresScreen.dart';
 import 'package:guia_turismo/services/inicializar.dart';
 import 'package:guia_turismo/themes/theme_controller.dart';

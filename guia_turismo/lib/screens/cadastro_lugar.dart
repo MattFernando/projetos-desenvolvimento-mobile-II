@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:guia_turismo/controllers/lugaresController.dart';
 import 'package:guia_turismo/models/lugaresModel.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 class CadastroLugar extends StatefulWidget {
   const CadastroLugar({super.key});
@@ -103,7 +104,30 @@ Future<void> _salvarDados(BuildContext contextDialog) async {
   if (controleLugares.erro.isEmpty) {
     //Se deu certo, fecha o modal
     Navigator.pop(contextDialog); 
+    setState(() {
+    });
   }
+}
+
+void compartilharLugar(LugaresModel lugar) {
+  final mensagem = '''
+    DÊ UMA OLHADA NESSE LUGAR!
+
+    Nome: ${lugar.nome}
+
+    Categoria: ${lugar.categoria}
+
+    Descrição: ${lugar.descricao}
+
+    Localização:
+    https://www.google.com/maps/search/?api=1&query=${lugar.latitude},${lugar.longitude}
+    ''';
+
+  SharePlus.instance.share(
+    ShareParams(
+      text: mensagem,
+    ),
+  );
 }
 
   @override
@@ -133,7 +157,37 @@ Future<void> _salvarDados(BuildContext contextDialog) async {
                 title: Text(lugar.nome),
                 subtitle: Text(lugar.categoria.toString()),
                 leading: CircleAvatar(child: Icon(Icons.place)),
-                trailing: IconButton(onPressed: (){}, icon: Icon(Icons.favorite)),
+                trailing: 
+                  Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Botão de favorito
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          lugar.favoritado = !lugar.favoritado;
+                        });
+                      },
+                      icon: Icon(
+                        lugar.favoritado
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color: Colors.red,
+                      ),
+                    ),
+
+                    // Botão de compartilhar
+                    IconButton(
+                      onPressed: () {
+                        compartilharLugar(lugar);
+                      },
+                      icon: Icon(
+                        Icons.share,
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           },

@@ -39,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
           credencial,
         );
       }
-
+        //mounted é para verificar se a tela/state existe )se esta associado a um widget) ou nao, então caso nao exista vai retornar para interromper a execução
       if (!mounted) return;
       setState(() => _usuario = resultado.user);
       _entrarLogado();
@@ -48,11 +48,13 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+//Função para entrar com o email já usado anteriormente
   Future<void> _entrarLogado() async {
     if (!mounted || _usuario == null) return;
     Navigator.pushNamed(context, 'home');
   }
 
+//consertando a função para sair da conta
   Future<void> _sair() async {
     try{
     await FirebaseAuth.instance.signOut();

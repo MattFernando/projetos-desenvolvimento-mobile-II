@@ -6,6 +6,7 @@ class LugaresModel {
   final num longitude;
   final String? descricao;
   final int categoriaId;
+  bool favoritado;
 
 
   LugaresModel({
@@ -15,7 +16,8 @@ class LugaresModel {
     required this.latitude,
     required this.longitude,
     this.descricao = '',
-    required this.categoriaId
+    required this.categoriaId,
+    this.favoritado = false
   });
 
   //Converter dados json (da api) para Map
@@ -39,7 +41,9 @@ class LugaresModel {
       'longitude': longitude,
       'categoria': categoria,
       'descricao': descricao,
-      'categoriaId': categoriaId
+      'categoriaId': categoriaId,
+      'favoritado': favoritado,
+
     };
   }
 }
