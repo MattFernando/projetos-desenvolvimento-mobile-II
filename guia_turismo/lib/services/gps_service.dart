@@ -19,7 +19,7 @@ class GpsService{
     Position posicao;
     try{
       posicao = await Geolocator.getCurrentPosition();
-      return LatLng(posicao.altitude, posicao.longitude);
+      return LatLng(posicao.latitude, posicao.longitude);
     }catch(erro){
       debugPrint("ERRO ao obter a posição: $erro");
       return null;

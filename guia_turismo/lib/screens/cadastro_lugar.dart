@@ -153,7 +153,9 @@ void compartilharLugar(LugaresModel lugar) {
               ),
               elevation: 4,
               child: ListTile(
-                onTap: (){},
+                onTap: (){
+                  
+                },
                 title: Text(lugar.nome),
                 subtitle: Text(lugar.categoria.toString()),
                 leading: CircleAvatar(child: Icon(Icons.place)),

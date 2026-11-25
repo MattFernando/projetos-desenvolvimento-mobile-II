@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 class LugaresServices {
   String endpoint = "https://guia.liliaborges.com.br/lugares";
   int pagina = 1;
-  int limite = 10;
+  int limite = 140;
 
   Future<List<LugaresModel>> buscarLugares() async {
     try {
