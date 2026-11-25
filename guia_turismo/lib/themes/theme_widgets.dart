@@ -10,8 +10,21 @@ AppBarTheme defineAppBar(cor) {
 }
 
 BottomNavigationBarThemeData defineNavegacaoBase(cor) {
+  final bool temaEscuro = cor.brightness == Brightness.dark;
   return BottomNavigationBarThemeData(
-    backgroundColor: cor.primary,
+    backgroundColor: temaEscuro
+        ? Colors.black
+        : cor.primary,
+
+    selectedItemColor: temaEscuro
+        ? Colors.white
+        : cor.primary,
+
+    unselectedItemColor: temaEscuro
+        ? Colors.white
+        : cor.primary,
+
+
     elevation: 4,
   );
 }
